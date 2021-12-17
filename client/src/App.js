@@ -1,7 +1,13 @@
 import "./App.css";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
-function App() {
-  return <div className="App">URL Shortner</div>;
-}
+const App = () => (
+  <>
+    {/* <h1 classname="App">Hello</h1> */}
+    <Header />
+    <Footer />
+  </>
+);
 
 export default App;
