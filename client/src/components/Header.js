@@ -7,6 +7,7 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 // import {} from "react-router-dom";
 // import { logout } from "../actions/userActions";
@@ -15,7 +16,9 @@ const Header = () => {
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href="/">URL Shortner</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Link to="/">URL Shortner</Link>
+        </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -30,7 +33,9 @@ const Header = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link href="#">My URLs</Nav.Link>
+            <Nav.Link href="/myurls">
+              <Link to="/myurls">My URLs</Link>
+            </Nav.Link>
             <NavDropdown title="Vandana Nandan">
               <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
 
