@@ -1,14 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Accordion, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
-import urls from "../../Urls/Url";
+// import urls from "../../Urls/Url";
+import axios from "axios";
 
 const MyUrls = () => {
+  const [urls, setUrls] = useState([]);
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
+
+  const fetchUrl = async () => {
+    const { data } = await axios.get("/api/url");
+    setUrls(data);
+  };
+  useEffect(() => {
+    fetchUrl();
+  }, []);
 
   return (
     <MainScreen title="Welcome Back">
@@ -19,7 +30,7 @@ const MyUrls = () => {
         </Button>
       </Link>
       {urls.map((url) => (
-        <Accordion>
+        <Accordion key={url._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
               <span
