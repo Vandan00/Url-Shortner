@@ -15,12 +15,12 @@ const LandingPage = () => {
               <p className="subtitle">One place for all your URLs.</p>
             </div>
             <div className="buttonContainer">
-              <a href="#login">
+              <a href="login">
                 <Button size="lg" className="landingbutton">
                   Login
                 </Button>
               </a>
-              <a href="#Signup">
+              <a href="register">
                 <Button
                   variant="outline-primary"
                   size="lg"
