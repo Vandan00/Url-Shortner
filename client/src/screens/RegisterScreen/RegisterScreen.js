@@ -9,14 +9,10 @@ import axios from "axios";
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [pic, setPic] = useState(
-    "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-  );
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
 
-  const [picMessage, setPicMessage] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +35,6 @@ const RegisterScreen = () => {
           "/api/users",
           {
             name,
-            pic,
             email,
             password,
           },
@@ -53,35 +48,35 @@ const RegisterScreen = () => {
       // dispatch(register(name, email, password, pic));
     }
   };
-  const postDetails = (pics) => {
-    if (
-      pics ===
-      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-    ) {
-      return setPicMessage("Please Select an Image");
-    }
-    setPicMessage(null);
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
-      const data = new FormData();
-      data.append("file", pics);
-      data.append("upload_preset", "urlshortner");
-      data.append("cloud_name", "dsjynlf0q");
-      fetch("https://api.cloudinary.com/v1_1/dsjynlf0q/image/upload", {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setPic(data.url.toString());
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      return setPicMessage("Please Select an Image");
-    }
-  };
+  //   const postDetails = (pics) => {
+  //     if (
+  //       pics ===
+  //       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+  //     ) {
+  //       return setPicMessage("Please Select an Image");
+  //     }
+  //     setPicMessage(null);
+  //     if (pics.type === "image/jpeg" || pics.type === "image/png") {
+  //       const data = new FormData();
+  //       data.append("file", pics);
+  //       data.append("upload_preset", "urlshortner");
+  //       data.append("cloud_name", "dsjynlf0q");
+  //       fetch("https://api.cloudinary.com/v1_1/dsjynlf0q/image/upload", {
+  //         method: "post",
+  //         body: data,
+  //       })
+  //         .then((res) => res.json())
+  //         .then((data) => {
+  //           console.log(data);
+  //           setPic(data.url.toString());
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     } else {
+  //       return setPicMessage("Please Select an Image");
+  //     }
+  //   };
 
   return (
     <MainScreen title="REGISTER">
@@ -130,7 +125,7 @@ const RegisterScreen = () => {
             />
           </Form.Group>
 
-          {picMessage && (
+          {/* {picMessage && (
             <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
           )}
           <Form.Group controlId="pic">
@@ -142,7 +137,7 @@ const RegisterScreen = () => {
               label="Upload Profile Picture"
               custom
             />
-          </Form.Group>
+          </Form.Group> */}
           {/* <Form.Group className="position-relative mb-3">
             <Form.Label>Profile Picture</Form.Label>
             <Form.Control
