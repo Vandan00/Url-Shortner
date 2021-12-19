@@ -35,6 +35,7 @@ const LoginScreen = () => {
       setLoading(false);
     } catch (error) {
       setError(error.response.data.message);
+      setLoading(false);
     }
   };
 

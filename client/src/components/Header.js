@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import {
   Container,
@@ -13,6 +14,17 @@ import { Link } from "react-router-dom";
 // import { logout } from "../actions/userActions";
 
 const Header = () => {
+  // const unstable_HistoryRouter = unstable_HistoryRouter();
+  const handleLogout = async () => {
+    try {
+      await axios.get("/users/logout");
+      localStorage.removeItem("userInfo");
+      window.location.href = "/";
+    } catch (err) {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
@@ -40,7 +52,12 @@ const Header = () => {
               <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
 
               <NavDropdown.Divider />
-              <NavDropdown.Item>Logout</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/" onClick={handleLogout}>
+                  {" "}
+                  Logout
+                </Link>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
