@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/Vandan00/Url-Shortner#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^6.5.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.2",
     "nodemon": "^2.0.15"
   }

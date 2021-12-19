@@ -4,9 +4,12 @@ const app = express();
 const dotenv = require("dotenv");
 const urls = require("./Urls/Url");
 const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
+
 // const connectDB = require("./config/db");
 
 dotenv.config();
+app.use(express.json());
 // connectDB();
 
 app.get("/", (req, res) => {
@@ -19,6 +22,7 @@ app.get("/api/url/:id", (req, res) => {
   const url = urls.find((n) => n._id === req.params.id);
   res.send(url);
 });
+app.use("/api/users", userRoutes);
 
 // mongoose.set("useCreateIndex", true);
 mongoose
