@@ -1,42 +1,43 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainScreen from "../../components/MainScreen";
 import "./LoginScreen.css";
+import { Redirect } from "react-router-dom";
+// import { browserHistory } from "react-router";
+// import { withRouter } from "react-router-dom";
+// import { redirect } from "express/lib/response";
+// import { unstable_HistoryRouter } from "react-router-dom";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
+  // const history = unstable_HistoryRouter();
+  //   const { history } = this.props;
+  useEffect(() => {
+    if (userInfo) {
+      //   window.location.href = "/myurls";
+      <Redirect to="/myurls" />;
+      //   history.push("/myurls");
+      // browserHistory.push("/myurls");
+      //   this.props.history.push("/myurls");
+    }
+  }, [userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      setLoading(true);
-      const { data } = await axios.post(
-        "/api/users/login",
-        {
-          email,
-          password,
-        },
-        config
-      );
-      console.log(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
-    } catch (error) {
-      setError(error.response.data.message);
-      setLoading(false);
-    }
+
+    dispatch(login(email, password));
   };
 
   return (

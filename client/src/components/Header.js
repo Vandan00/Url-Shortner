@@ -17,7 +17,7 @@ const Header = () => {
   // const unstable_HistoryRouter = unstable_HistoryRouter();
   const handleLogout = async () => {
     try {
-      await axios.get("/users/logout");
+      //   await axios.get("/users/logout");
       localStorage.removeItem("userInfo");
       window.location.href = "/";
     } catch (err) {
