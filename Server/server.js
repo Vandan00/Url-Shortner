@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const urls = require("./Urls/Url");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+const { errorHandler, notFound } = require("./Middlewares/errorMiddleware");
 
 // const connectDB = require("./config/db");
 
@@ -37,6 +38,9 @@ mongoose
     console.log("Connection estabislished with MongoDB");
   })
   .catch((error) => console.error(error.message));
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(5000, console.log(`Server started at port ${PORT}`));
