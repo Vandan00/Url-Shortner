@@ -7,32 +7,24 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainScreen from "../../components/MainScreen";
 import "./LoginScreen.css";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { browserHistory } from "react-router";
-// import { withRouter } from "react-router-dom";
-// import { redirect } from "express/lib/response";
-// import { unstable_HistoryRouter } from "react-router-dom";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  // const history = unstable_HistoryRouter();
-  //   const { history } = this.props;
   useEffect(() => {
     if (userInfo) {
-      //   window.location.href = "/myurls";
-      <Redirect to="/myurls" />;
-      //   history.push("/myurls");
-      // browserHistory.push("/myurls");
-      //   this.props.history.push("/myurls");
+      navigate("/myurls");
     }
-  }, [userInfo]);
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
