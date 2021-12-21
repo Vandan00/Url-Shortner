@@ -8,6 +8,8 @@ const userRoutes = require("./routes/userRoutes");
 const urlRoutes = require("./routes/urlRoutes");
 const redirect = require("./routes/redirect");
 const { errorHandler, notFound } = require("./Middlewares/errorMiddleware");
+const cors = require("cors");
+app.use(cors());
 
 // const connectDB = require("./config/db");
 
@@ -15,9 +17,9 @@ dotenv.config();
 app.use(express.json());
 // connectDB();
 
-// app.get("/", (req, res) => {
-//   res.send("API is running");
-// });
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 // app.get("/api/url", (req, res) => {
 //   res.json(urls);
 // });

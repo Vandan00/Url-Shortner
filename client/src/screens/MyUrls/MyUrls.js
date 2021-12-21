@@ -3,33 +3,35 @@ import { Accordion, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 // import urls from "../../Urls/Url";
-import axios from "axios";
+// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listUrls } from "../../actions/urlActions";
 
 const MyUrls = () => {
-  const [urls, setUrls] = useState([]);
+  const dispatch = useDispatch();
+  const urlList = useSelector((state) => state.urlList);
+  const { loading, urls, error } = urlList;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
 
-  const fetchUrl = async () => {
-    const { data } = await axios.get("/api/url");
-    setUrls(data);
-  };
   useEffect(() => {
-    fetchUrl();
-  }, []);
+    dispatch(listUrls());
+  }, [dispatch]);
 
   return (
     <MainScreen title="Welcome Back">
+      {console.log(urls)}
       <Link to="createUrl">
         <Button style={{ marginleft: 10, marginbottom: 6 }} size="lg">
           {" "}
           Create Url
         </Button>
       </Link>
-      {urls.map((url) => (
+      {/* ? */}
+      {urls?.map((url) => (
         <Accordion key={url._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
@@ -43,9 +45,7 @@ const MyUrls = () => {
                   fontSize: 18,
                 }}
               >
-                {/* <Accordion.Toggle as={Card.Text} variant="link" eventKey="0"> */}
-                {url.Short_Url}
-                {/* </Accordion.Toggle> */}
+                {url.shortUrl}
               </span>
 
               <div>
@@ -62,7 +62,7 @@ const MyUrls = () => {
             {/* <Accordion.Collapse eventKey="0"> */}
             <Card.Body>
               <blockquote className="blackquote mb-0">
-                <p>{url.Long_Url}</p>
+                <p>{url.longUrl}</p>
 
                 <footer className="blackquote-footer">created on - date</footer>
               </blockquote>

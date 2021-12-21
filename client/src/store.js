@@ -1,25 +1,22 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-// import {
-//   noteCreateReducer,
-//   noteDeleteReducer,
-//   noteListReducer,
-//   noteUpdateReducer,
-// } from "./reducers/notesReducers";
+
 import {
   userLoginReducer,
   userRegisterReducer,
   //   userUpdateReducer,
 } from "./reducers/userReducers";
 
+import { urlListReducer } from "./reducers/urlReducers";
+
 const reducer = combineReducers({
-  //   noteList: noteListReducer,
+  urlList: urlListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
-  //   noteCreate: noteCreateReducer,
-  //   noteDelete: noteDeleteReducer,
-  //   noteUpdate: noteUpdateReducer,
+  //   urlCreate: urlCreateReducer,
+  //   urlDelete: urlDeleteReducer,
+  //   urlUpdate: urlUpdateReducer,
   //   userUpdate: userUpdateReducer,
 });
 
