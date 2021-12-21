@@ -1,8 +1,10 @@
 const express = require("express");
-const validUrl = require("valid-url");
-const shortid = require("shortid");
 
-const { getUrl } = require("../controllers/urlControllers");
+const {
+  getUrl,
+  CreateUrl,
+  getUrlById,
+} = require("../controllers/urlControllers");
 // import {
 //   //   getNoteById,
 //   getUrl,
@@ -18,55 +20,15 @@ const router = express.Router();
 const Url = require("../models/urlModel");
 const { protect } = require("../Middlewares/authMiddleware");
 
-// @route    POST /api/url/shorten
+// @route    POST /api/url/create
 // @description     Create short URL
 
 // The API base Url endpoint
-const baseUrl = "http:localhost:5000";
-
-router.post("/shorten", async (req, res) => {
-  const { longUrl } = req.body;
-  if (!validUrl.isUri(baseUrl)) {
-    return res.status(401).json("Invalid base URL");
-  }
-
-  const urlCode = shortid.generate();
-
-  if (validUrl.isUri(longUrl)) {
-    try {
-      let url = await Url.findOne({
-        longUrl,
-      });
-
-      if (url) {
-        res.json(url);
-      } else {
-        const shortUrl = baseUrl + "/" + urlCode;
-
-        url = new Url({
-          longUrl,
-          shortUrl,
-          urlCode,
-          date: new Date(),
-        });
-        await url.save();
-        res.json(url);
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(500).json("Server Error");
-    }
-  } else {
-    res.status(401).json("Invalid longUrl");
-  }
-});
 
 router.route("/").get(protect, getUrl);
-// router
-//   .route("/:id")
-//   .get(getUrlById)
+router.route("/:id").get(getUrlById);
 //   .delete(protect, DeleteUrl)
 //   .put(protect, UpdateUrl);
-// router.route("/create").post(protect, CreateUrl);
+router.route("/create").post(protect, CreateUrl);
 
 module.exports = router;
