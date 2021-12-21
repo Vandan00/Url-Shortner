@@ -6,6 +6,7 @@ const urls = require("./Urls/Url");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const urlRoutes = require("./routes/urlRoutes");
+const redirect = require("./routes/redirect");
 const { errorHandler, notFound } = require("./Middlewares/errorMiddleware");
 
 // const connectDB = require("./config/db");
@@ -26,6 +27,7 @@ app.get("/api/url/:id", (req, res) => {
 });
 app.use("/api/users", userRoutes);
 app.use("/api/urls", urlRoutes);
+app.use("/", redirect);
 
 // mongoose.set("useCreateIndex", true);
 mongoose
