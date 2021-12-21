@@ -4,6 +4,8 @@ const {
   getUrl,
   CreateUrl,
   getUrlById,
+  UpdateUrl,
+  DeleteUrl,
 } = require("../controllers/urlControllers");
 // import {
 //   //   getNoteById,
@@ -26,9 +28,11 @@ const { protect } = require("../Middlewares/authMiddleware");
 // The API base Url endpoint
 
 router.route("/").get(protect, getUrl);
-router.route("/:id").get(getUrlById);
-//   .delete(protect, DeleteUrl)
-//   .put(protect, UpdateUrl);
+router
+  .route("/:id")
+  .get(getUrlById)
+  .put(protect, UpdateUrl)
+  .delete(protect, DeleteUrl);
 router.route("/create").post(protect, CreateUrl);
 
 module.exports = router;

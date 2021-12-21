@@ -57,5 +57,41 @@ const getUrlById = asyncHandler(async (req, res) => {
 
   res.json(url);
 });
+const UpdateUrl = asyncHandler(async (req, res) => {
+  const { shortUrl } = req.body;
 
-module.exports = { getUrl, CreateUrl, getUrlById };
+  const url = await Url.findById(req.params.id);
+
+  if (url.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("You can't perform this action");
+  }
+
+  if (url) {
+    url.shortUrl = shortUrl;
+
+    const updatedUrl = await url.save();
+    res.json(updatedUrl);
+  } else {
+    res.status(404);
+    throw new Error("Url not found");
+  }
+});
+const DeleteUrl = asyncHandler(async (req, res) => {
+  const url = await Url.findById(req.params.id);
+
+  if (url.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("You can't perform this action");
+  }
+
+  if (url) {
+    await url.remove();
+    res.json({ message: "Url Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Url not Found");
+  }
+});
+
+module.exports = { getUrl, CreateUrl, getUrlById, UpdateUrl, DeleteUrl };
