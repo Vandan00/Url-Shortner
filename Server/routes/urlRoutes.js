@@ -2,11 +2,21 @@ const express = require("express");
 const validUrl = require("valid-url");
 const shortid = require("shortid");
 
+const { getUrl } = require("../controllers/urlControllers");
+// import {
+//   //   getNoteById,
+//   getUrl,
+//   //   CreateNote,
+//   //   DeleteNote,
+//   //   UpdateNote,
+// } from "../controllers/urlControllers.js";
+
 // creating express route handler
 const router = express.Router();
 
 // import the Url database model
 const Url = require("../models/urlModel");
+const { protect } = require("../Middlewares/authMiddleware");
 
 // @route    POST /api/url/shorten
 // @description     Create short URL
@@ -50,5 +60,13 @@ router.post("/shorten", async (req, res) => {
     res.status(401).json("Invalid longUrl");
   }
 });
+
+router.route("/").get(protect, getUrl);
+// router
+//   .route("/:id")
+//   .get(getUrlById)
+//   .delete(protect, DeleteUrl)
+//   .put(protect, UpdateUrl);
+// router.route("/create").post(protect, CreateUrl);
 
 module.exports = router;
