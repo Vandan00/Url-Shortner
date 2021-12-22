@@ -7,7 +7,7 @@ import MainScreen from "../../components/MainScreen";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
-import { listUrls } from "../../actions/urlActions";
+import { deleteUrlAction, listUrls } from "../../actions/urlActions";
 import { useNavigate } from "react-router-dom";
 
 const MyUrls = () => {
@@ -23,8 +23,19 @@ const MyUrls = () => {
   const urlCreate = useSelector((state) => state.urlCreate);
   const { success: successCreate } = urlCreate;
 
+  const urlUpdate = useSelector((state) => state.urlUpdate);
+  const { sucess: successUpdate } = urlUpdate;
+
+  const urlDelete = useSelector((state) => state.urlDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = urlDelete;
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
+      dispatch(deleteUrlAction(id));
     }
   };
 
@@ -33,7 +44,14 @@ const MyUrls = () => {
     if (!userInfo) {
       navigate("/");
     }
-  }, [dispatch, navigate, userInfo, successCreate]);
+  }, [
+    dispatch,
+    navigate,
+    userInfo,
+    successCreate,
+    successUpdate,
+    successDelete,
+  ]);
 
   return (
     <MainScreen title={`Welcome Back ${userInfo && userInfo.name}..`}>

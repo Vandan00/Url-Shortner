@@ -34,7 +34,7 @@ const Header = () => {
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="m-auto">
+          {/* <Nav className="m-auto">
             <Form inline>
               <FormControl
                 type="text"
@@ -43,7 +43,7 @@ const Header = () => {
                 //   onChange={(e) => setSearch(e.target.value)}
               />
             </Form>
-          </Nav>
+          </Nav> */}
           <Nav>
             <Nav.Link href="/myurls">
               <Link to="/myurls">My URLs</Link>

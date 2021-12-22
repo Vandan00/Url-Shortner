@@ -8,15 +8,20 @@ import {
   //   userUpdateReducer,
 } from "./reducers/userReducers";
 
-import { urlCreateReducer, urlListReducer } from "./reducers/urlReducers";
+import {
+  urlCreateReducer,
+  urlDeleteReducer,
+  urlListReducer,
+  urlUpdateReducer,
+} from "./reducers/urlReducers";
 
 const reducer = combineReducers({
   urlList: urlListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   urlCreate: urlCreateReducer,
-  //   urlDelete: urlDeleteReducer,
-  //   urlUpdate: urlUpdateReducer,
+  urlDelete: urlDeleteReducer,
+  urlUpdate: urlUpdateReducer,
   //   userUpdate: userUpdateReducer,
 });
 

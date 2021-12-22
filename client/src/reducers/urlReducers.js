@@ -2,9 +2,15 @@ import {
   URLS_CREATE_FAIL,
   URLS_CREATE_REQUEST,
   URLS_CREATE_SUCCESS,
+  URLS_DELETE_FAIL,
+  URLS_DELETE_REQUEST,
+  URLS_DELETE_SUCCESS,
   URLS_LIST_FAIL,
   URLS_LIST_REQUEST,
   URLS_LIST_SUCCESS,
+  URLS_UPDATE_FAIL,
+  URLS_UPDATE_REQUEST,
+  URLS_UPDATE_SUCCESS,
 } from "../constants/urlConstants";
 
 export const urlListReducer = (state = { urls: [] }, action) => {
@@ -29,6 +35,34 @@ export const urlCreateReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case URLS_CREATE_FAIL:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const urlUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case URLS_UPDATE_REQUEST:
+      return { loading: true };
+    case URLS_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case URLS_UPDATE_FAIL:
+      return { loading: false, error: action.payload, success: false };
+
+    default:
+      return state;
+  }
+};
+
+export const urlDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case URLS_DELETE_REQUEST:
+      return { loading: true };
+    case URLS_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case URLS_DELETE_FAIL:
+      return { loading: false, error: action.payload, success: false };
 
     default:
       return state;
