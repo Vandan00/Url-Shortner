@@ -6,6 +6,7 @@ import LandingPage from "./screens/LandingPages/LandingPage";
 import MyUrls from "./screens/MyUrls/MyUrls";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import CreateUrl from "./screens/CreateUrl/CreateUrl";
 
 const App = () => (
   <Router>
@@ -15,6 +16,7 @@ const App = () => (
         <Route exact path="/" element={<LandingPage />}></Route>
         <Route exact path="/login" element={<LoginScreen />}></Route>
         <Route exact path="/register" element={<RegisterScreen />}></Route>
+        <Route exact path="/createurl" element={<CreateUrl />}></Route>
         <Route exact path="/myurls" element={<MyUrls />}></Route>
       </Routes>
       {/* <Route path="/MyUrls" component={() => <MyUrls />} exact></Route> */}

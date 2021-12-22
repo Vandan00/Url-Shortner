@@ -1,16 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Accordion, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 // import urls from "../../Urls/Url";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 import { listUrls } from "../../actions/urlActions";
+import { useNavigate } from "react-router-dom";
 
 const MyUrls = () => {
   const dispatch = useDispatch();
   const urlList = useSelector((state) => state.urlList);
   const { loading, urls, error } = urlList;
+
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const urlCreate = useSelector((state) => state.urlCreate);
+  const { success: successCreate } = urlCreate;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -19,19 +30,24 @@ const MyUrls = () => {
 
   useEffect(() => {
     dispatch(listUrls());
-  }, [dispatch]);
+    if (!userInfo) {
+      navigate("/");
+    }
+  }, [dispatch, navigate, userInfo, successCreate]);
 
   return (
-    <MainScreen title="Welcome Back">
+    <MainScreen title={`Welcome Back ${userInfo && userInfo.name}..`}>
       {console.log(urls)}
-      <Link to="createUrl">
+      <Link to="/createurl">
         <Button style={{ marginleft: 10, marginbottom: 6 }} size="lg">
           {" "}
           Create Url
         </Button>
       </Link>
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {loading && <Loading />}
       {/* ? */}
-      {urls?.map((url) => (
+      {urls?.reverse().map((url) => (
         <Accordion key={url._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
@@ -64,7 +80,12 @@ const MyUrls = () => {
               <blockquote className="blackquote mb-0">
                 <p>{url.longUrl}</p>
 
-                <footer className="blackquote-footer">created on - date</footer>
+                <footer className="blockquote-footer">
+                  Created on{" "}
+                  <cite title="Source Title">
+                    {url.createdAt.substring(0, 10)}
+                  </cite>
+                </footer>
               </blockquote>
             </Card.Body>
             {/* </Accordion.Collapse> */}
