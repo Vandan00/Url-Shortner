@@ -9,9 +9,6 @@ import {
   URLS_LIST_FAIL,
   URLS_LIST_REQUEST,
   URLS_LIST_SUCCESS,
-  URLS_UPDATE_FAIL,
-  URLS_UPDATE_REQUEST,
-  URLS_UPDATE_SUCCESS,
 } from "../constants/urlConstants";
 
 export const listUrls = () => async (dispatch, getState) => {
@@ -79,45 +76,6 @@ export const createUrlAction = (longUrl) => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: URLS_CREATE_FAIL,
-      payload: message,
-    });
-  }
-};
-
-export const updateUrlAction = (id, shortUrl) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: URLS_UPDATE_REQUEST,
-    });
-
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.put(
-      `http://localhost:5000/api/urls/${id}`,
-      { shortUrl },
-      config
-    );
-
-    dispatch({
-      type: URLS_UPDATE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: URLS_UPDATE_FAIL,
       payload: message,
     });
   }

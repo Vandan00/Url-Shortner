@@ -12,7 +12,6 @@ import {
   urlCreateReducer,
   urlDeleteReducer,
   urlListReducer,
-  urlUpdateReducer,
 } from "./reducers/urlReducers";
 
 const reducer = combineReducers({
@@ -21,8 +20,6 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   urlCreate: urlCreateReducer,
   urlDelete: urlDeleteReducer,
-  urlUpdate: urlUpdateReducer,
-  //   userUpdate: userUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
