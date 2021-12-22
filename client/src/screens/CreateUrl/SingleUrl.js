@@ -8,9 +8,9 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-function SingleUrl({ params }) {
+function SingleUrl({ match }) {
   const [shortUrl, setShortUrl] = useState();
   const [longUrl, setLongUrl] = useState();
   const [date, setDate] = useState("");
@@ -18,8 +18,8 @@ function SingleUrl({ params }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useParams();
-  console.log(id);
+  //   const { id } = useParams();
+  //   console.log(id);
 
   const urlUpdate = useSelector((state) => state.urlUpdate);
   const { loading, error } = urlUpdate;
@@ -36,7 +36,7 @@ function SingleUrl({ params }) {
 
   useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`/api/urls/${params.id}`);
+      const { data } = await axios.get(`/api/urls/${match.params.id}`);
       console.log(data);
 
       setShortUrl(data.shortUrl);
@@ -45,7 +45,7 @@ function SingleUrl({ params }) {
     };
 
     fetching();
-  }, [params.id, date]);
+  }, [match.params?.id, date]);
 
   const resetHandler = () => {
     setShortUrl("");
@@ -54,7 +54,7 @@ function SingleUrl({ params }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUrlAction(params.id, shortUrl, longUrl));
+    dispatch(updateUrlAction(match.params.id, shortUrl, longUrl));
     if (!shortUrl || !longUrl) return;
 
     resetHandler();
@@ -66,7 +66,7 @@ function SingleUrl({ params }) {
       <Card>
         <Card.Header>Change Url</Card.Header>
         <Card.Body>
-          <Form onSubmit={updateHandler(params.id)}>
+          <Form onSubmit={updateHandler(match.params.id)}>
             {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
 
             <Form.Group controlId="longUrl">
@@ -95,7 +95,7 @@ function SingleUrl({ params }) {
             <Button
               className="mx-2"
               variant="danger"
-              onClick={() => deleteHandler(params.id)}
+              onClick={() => deleteHandler(match.params.id)}
             >
               Delete Url
             </Button>
