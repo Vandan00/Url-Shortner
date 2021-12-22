@@ -84,45 +84,44 @@ export const createUrlAction = (longUrl) => async (dispatch, getState) => {
   }
 };
 
-export const updateUrlAction =
-  (id, shortUrl, longUrl) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: URLS_UPDATE_REQUEST,
-      });
+export const updateUrlAction = (id, shortUrl) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: URLS_UPDATE_REQUEST,
+    });
 
-      const {
-        userLogin: { userInfo },
-      } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.put(
-        `/api/urls/${id}`,
-        { shortUrl, longUrl },
-        config
-      );
+    const { data } = await axios.put(
+      `http://localhost:5000/api/urls/${id}`,
+      { shortUrl },
+      config
+    );
 
-      dispatch({
-        type: URLS_UPDATE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({
-        type: URLS_UPDATE_FAIL,
-        payload: message,
-      });
-    }
-  };
+    dispatch({
+      type: URLS_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: URLS_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};
 
 export const deleteUrlAction = (id) => async (dispatch, getState) => {
   try {

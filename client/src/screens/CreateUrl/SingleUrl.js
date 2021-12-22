@@ -36,7 +36,7 @@ function SingleUrl({ match }) {
 
   useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`/api/urls/${match.params.id}`);
+      const { data } = await axios.get(`/api/urls/${match.params?.id}`);
       console.log(data);
 
       setShortUrl(data.shortUrl);
@@ -54,8 +54,8 @@ function SingleUrl({ match }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUrlAction(match.params.id, shortUrl, longUrl));
-    if (!shortUrl || !longUrl) return;
+    dispatch(updateUrlAction(match.params.id, shortUrl));
+    if (!shortUrl) return;
 
     resetHandler();
     navigate("/myurls");
