@@ -10,6 +10,7 @@ const redirect = require("./routes/redirect");
 const { errorHandler, notFound } = require("./Middlewares/errorMiddleware");
 const cors = require("cors");
 app.use(cors());
+const path = require("path");
 
 // const connectDB = require("./config/db");
 
@@ -17,9 +18,6 @@ dotenv.config();
 app.use(express.json());
 // connectDB();
 
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
 // app.get("/api/url", (req, res) => {
 //   res.json(urls);
 // });
@@ -30,6 +28,23 @@ app.get("/api/url/:id", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/urls", urlRoutes);
 app.use("/", redirect);
+
+// -----------Deployment--------------
+
+__dirname = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+}
+
+// -------------------------
 
 // mongoose.set("useCreateIndex", true);
 mongoose

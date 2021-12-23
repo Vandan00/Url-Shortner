@@ -33,20 +33,27 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
-            <Nav.Link href="/myurls">
-              <Link to="/myurls">My URLs</Link>
-            </Nav.Link>
-            <NavDropdown title="test">
-              <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
+            {userInfo ? (
+              <>
+                <Nav.Link href="/myurls">My urls</Nav.Link>
+                <NavDropdown
+                  title={`${userInfo.name}`}
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item href="#">My Profile</NavDropdown.Item>
 
-              <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Link to="/" onClick={handleLogout}>
-                  {" "}
-                  Logout
-                </Link>
-              </NavDropdown.Item>
-            </NavDropdown>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item>
+                    <Link to="/" onClick={handleLogout}>
+                      {" "}
+                      Logout
+                    </Link>
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
