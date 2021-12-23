@@ -40,3 +40,5 @@ Post - http://localhost:5000/api/urls/create
 ### Deleting Url:
 
 Delete request - http://localhost:5000/api/id
+
+It is also deployed on heroku - https://urlshortner-mern-stack.herokuapp.com/
