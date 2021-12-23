@@ -26,4 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 node_modules
 server/config
-
+/client/build
+/build
